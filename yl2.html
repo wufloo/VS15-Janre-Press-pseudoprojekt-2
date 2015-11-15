@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+<script>
+    (function(document) {
+        'use strict';
+        var otsing = (function(Arr) {
+            var _input;
+            function _onInputEvent(e) {
+                _input = e.target;
+                var tables = document.getElementsByClassName(_input.getAttribute('data-table'));
+                Arr.forEach.call(tables, function(table) {
+                    Arr.forEach.call(table.tBodies, function(tbody) {
+                        Arr.forEach.call(tbody.rows, _filter);
+                    });
+                });
+            }
+            function _filter(row) {
+                var text = row.textContent.toLowerCase(), val = _input.value.toLowerCase();
+                row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
+            }
+            return {
+                init: function() {
+                    var inputs = document.getElementsByClassName('light-table-filter');
+                    Arr.forEach.call(inputs, function(input) {
+                        input.oninput = _onInputEvent;
+                    });
+                }
+            };
+        })(Array.prototype);
+        document.addEventListener('readystatechange', function() {
+            if (document.readyState === 'complete') {
+                otsing.init();
+            }
+        });
+    })(document);
+</script>
+
+<section class="container">
+
+    <table class="andmed table">
+        <thead>
+        <tr>
+            <th>Mark</th>
+            <th>Tippkiirus</th>
+            <th>Hind</th>
+            <th>Võimsus (kW)</th>
+            <th>Kiirendus 0-100 km/h (s)</th>
+        </tr>
+        <tr>
+            <th><input type="search" class="light-table-filter" data-table="andmed" placeholder="Otsi"></th>
+            <th><input type="search" class="light-table-filter" data-table="andmed" placeholder="Otsi"></th>
+            <th><input type="search" class="light-table-filter" data-table="andmed" placeholder="Otsi"></th>
+            <th><input type="search" class="light-table-filter" data-table="andmed" placeholder="Otsi"></th>
+            <th><input type="search" class="light-table-filter" data-table="andmed" placeholder="Otsi"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Lexus</td>
+            <td>255</td>
+            <td>99 440 EUR</td>
+            <td>272</td>
+            <td>6,3</td>
+        </tr>
+
+        <tr>
+            <td>Audi</td>
+            <td>208</td>
+            <td>30 400 EUR</td>
+            <td>88</td>
+            <td>10,5</td>
+        </tr>
+
+        <tr>
+            <td>Toyota</td>
+            <td>205</td>
+            <td>17 990 EUR</td>
+            <td>105</td>
+            <td>9,5</td>
+        </tr>
+
+        <tr>
+            <td>BMW</td>
+            <td>250</td>
+            <td>76 800 EUR</td>
+            <td>317</td>
+            <td>4,3</td>
+        </tr>
+        </tbody>
+    </table>
+
+</section>
+
+</body>
+</html>
