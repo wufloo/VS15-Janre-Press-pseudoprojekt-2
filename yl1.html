@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=Windows-1252">
+<body>
+<script type="text/javascript">
+    var inimesed, asc1 = 1,
+            asc2 = 1,
+            asc3 = 1;
+    asc4 = 1;
+    asc5 = 1;
+    window.onload = function () {
+        inimesed = document.getElementById("inimesed");
+    }
+    function sort_table(tbody, col, asc) {
+        var rows = tbody.rows,
+                rlen = rows.length,
+                arr = new Array(),
+                i, j, cells, clen;
+        // fill the array with values from the table
+        for (i = 0; i < rlen; i++) {
+            cells = rows[i].cells;
+            clen = cells.length;
+            arr[i] = new Array();
+            for (j = 0; j < clen; j++) {
+                arr[i][j] = cells[j].innerHTML;
+            }
+        }
+        // sort the array by the specified column number (col) and order (asc)
+        arr.sort(function (a, b) {
+            return (a[col] == b[col]) ? 0 : ((a[col] > b[col]) ? asc : -1 * asc);
+        });
+        // replace existing rows with new rows created from the sorted array
+        for (i = 0; i < rlen; i++) {
+            rows[i].innerHTML = "<td>" + arr[i].join("</td><td>") + "</td>";
+        }
+    }
+</script>
+<style type="text/css">
+    table {
+        border-collapse: collapse;
+        border: none;
+    }
+    th,
+    td {
+        border: 1px solid black;
+        padding: 4px 16px;
+        font-family: Times New Roman;
+        font-size: 24px;
+        text-align: left;
+    }
+    th {
+        background-color: #C8C8C8;
+        cursor: pointer;
+    }
+</style>
+</head>
+<table>
+    <thead>
+    <tr>
+        <td onclick="sort_table(inimesed, 0, asc1); asc1 *= -1; asc2 = 1; asc3 = 1;">Nimi</td>
+        <td onclick="sort_table(inimesed, 1, asc2); asc2 *= -1; asc3 = 1; asc1 = 1;">Telefoni number</td>
+        <td onclick="sort_table(inimesed, 2, asc3); asc3 *= -1; asc1 = 1; asc2 = 1;">E-mail</td>
+        <td onclick="sort_table(inimesed, 3, asc4); asc4 *= -1; asc3 = 1; asc1 = 1;">Linn</td>
+        <td onclick="sort_table(inimesed, 4, asc5); asc5 *= -1; asc2 = 1; asc3 = 1;">Riik</td>
+    </tr>
+    </thead>
+    <tbody id="inimesed">
+    <tr>
+        <td>Katrin Mänd</td>
+        <td>+372 5764 8734</td>
+        <td>katrin.mand@gmail.com</td>
+        <td>Tallinn</td>
+        <td>Eesti</td>
+    </tr>
+    <tr>
+        <td>Mait Mõistus</td>
+        <td>+372 5674 5674</td>
+        <td>mait.olen@hot.ee</td>
+        <td>Moskva</td>
+        <td>Venemaa</td>
+    </tr>
+    <tr>
+        <td>Kärt Känd</td>
+        <td>+372 5377 8920</td>
+        <td>olenroosid@gmail.com</td>
+        <td>Pariis</td>
+        <td>Prantsusmaa</td>
+    </tr>
+    <tr>
+        <td>Tõnis Paad</td>
+        <td>+372 5764 5434</td>
+        <td>woodenboy@gmail.com</td>
+        <td>Narva</td>
+        <td>Eesti</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
